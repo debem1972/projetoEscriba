@@ -1,0 +1,147 @@
+:root {
+    --primary-color: #8B7355;
+    --secondary-color: #DEB887;
+    --background-color: #F5F5DC;
+    --text-color: #4A4A4A;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    /*background-color: #f8f9fa;*/
+    background-color: var(--background-color);
+}
+
+h1 {
+    color: #343a40;
+}
+
+textarea {
+    resize: none;
+}
+
+#outputArea {
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: auto;
+}
+
+#outputArea h1,
+#outputArea p {
+    margin: 0 0 1rem 0;
+}
+
+#outputArea h1 {
+    font-size: 2rem;
+    color: #007bff;
+}
+
+#outputArea p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #212529;
+}
+
+
+
+/*-------------------------------------------------------------------------*/
+/*Estilo dos toasts*/
+/* toast.css */
+/*.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    min-width: 200px;
+    padding: 15px 25px;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.toast-error {
+    background-color: #e74c3c;
+}
+
+.toast-success {
+    background-color: #2ecc71;
+}
+
+.toast-info {
+    background-color: #3498db;
+}
+
+.toast-warning {
+    background-color: #f1c40f;
+}*/
+
+/*.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 24px;
+    border-radius: 4px;
+    color: white;
+    background-color: #333;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.toast-success {
+    background-color: #28a745;
+}
+
+.toast-warning {
+    background-color: #ffc107;
+}
+
+.toast-error {
+    background-color: #dc3545;
+}
+
+.toast-info {
+    background-color: #17a2b8;
+}*/
+
+/*Implementando o cursor pointer a lista de textos salvos*/
+.saved-text-item {
+    cursor: pointer;
+}
+
+.saved-text-item:hover {
+    background-color: #f0f0f0;
+    /* Cor de fundo ao passar o mouse */
+    transition: background-color 0.2s ease-in-out;
+}
+
+
+/*--------------------------*/
+/*Estilos dos cards de textos*/
+.poetry-card {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.poetry-card:hover {
+    transform: translateY(-5px);
+}
+
+.poetry-title {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.poetry-author {
+    color: var(--secondary-color);
+    font-style: italic;
+    margin-bottom: 1rem;
+    float: right;
+}

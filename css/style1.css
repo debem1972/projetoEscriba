@@ -1,0 +1,134 @@
+:root {
+    --primary-color: #8B7355;
+    --secondary-color: #DEB887;
+    --background-color: #F5F5DC;
+    --text-color: #4A4A4A;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    /*background-color: #f8f9fa;*/
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 20px;
+}
+
+h1 {
+    /*color: #343a40;*/
+    color: var(--primary-color);
+    text-align: center;
+}
+
+/*textarea {
+    resize: none;
+}*/
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#outputArea {
+    /* background-color: #fff;
+    border-radius: 5px;
+    overflow: auto;*/
+    margin-top: 2px;
+}
+
+/*#outputArea h1,
+#outputArea p {
+    margin: 0 0 1rem 0;
+}*/
+
+/*#outputArea h1 {
+    font-size: 2rem;
+    
+}
+
+#outputArea p {
+    font-size: 1rem;
+    line-height: 1.6;*/
+/*color: #212529;*/
+/*}*/
+
+
+
+/*-------------------------------------------------------------------------*/
+
+
+/*Implementando o cursor pointer a lista de textos salvos*/
+.saved-text-item {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.saved-text-item:hover {
+    background-color: #f0f0f0;
+    /* Cor de fundo ao passar o mouse */
+    transition: background-color 0.2s ease-in-out;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: #ff4444;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0 8px;
+}
+
+.delete-btn:hover {
+    color: #cc0000;
+}
+
+
+/*--------------------------*/
+/*Estilos dos cards de textos*/
+.poetry-card {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.poetry-card:hover {
+    transform: translateY(-5px);
+}
+
+.poetry-title {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.poetry-preview {
+    white-space: pre-line;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+
+.poetry-author {
+    /*border: 2px solid red;*/
+    color: var(--secondary-color);
+    font-style: italic;
+    text-align: right;
+
+}
+
+.poetry-author p {
+    font-size: 0.8rem;
+    margin: 3px 0;
+    color: var(--secondary-color);
+    /* Garante que os <p> dentro também usem a cor */
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Texto para HTML</title>
+    <link rel="icon" type="image/png" href="">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="./css/style1.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Conversor e editor de texto para HTML</h1>
+        <!-- Área de entrada de texto, autor e categoria -->
+
+        <div class="mb-3">
+            <label for="inputTitle" class="form-label">Título:</label>
+            <input type="text" id="inputTitle" class="form-control" placeholder="Digite o título...">
+        </div>
+        <div class="mb-3">
+            <label for="inputText" class="form-label">Digite seu texto:</label>
+            <textarea id="inputText" class="form-control" rows="10" placeholder="Digite aqui..."></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="inputAuthor" class="form-label">Autor:</label>
+            <input type="text" id="inputAuthor" class="form-control" placeholder="Digite o nome do autor">
+        </div>
+        <div class="mb-3">
+            <label for="inputCategory" class="form-label">Categoria</label>
+            <input type="text" id="inputCategory" class="form-control" placeholder="Digite a categoria">
+        </div>
+
+        <div class="d-flex justify-content-between mt-3">
+            <button id="convertBtn" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-title="Publicar">
+                <i class="bi bi-book"></i>
+            </button>
+            <!--<button id="previewBtn" class="btn btn-success">Visualizar</button>-->
+            <button id="exportBtn" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-title="Exportar dados">
+                <i class="bi bi-cloud-arrow-up"></i>
+            </button>
+            <button id="importBtn" class="btn btn-info" data-bs-toggle="tooltip" data-bs-title="Importar dados">
+                <i class="bi bi-cloud-arrow-down"></i>
+            </button>
+            <button id="clearBtn" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-title="Limpar campos">
+                <i class="bi bi-eraser"></i>
+            </button>
+        </div>
+
+        <!-- Area de saída dos textos digitados e lançados-->
+        <div id="outputArea" class="mt-5 mb-3 p-4 border border-secondary" style="display: none;"></div>
+
+        <!-- Exibição da categoria selecionada -->
+        <div class="d-none" id="categoryDisplay">Categoria: <span id="selectedCategory"></span></div>
+
+        <!-- Lista de textos salvos -->
+        <div class="container mt-3 shadow rounded">
+            <h2>Textos Salvos</h2>
+            <ul id="savedTextsList"></ul>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="./js/index17.js" defer></script>
+    <script src="./js/mensagensFlut.js"></script>
+</body>
+
+</html>
