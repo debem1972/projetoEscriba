@@ -14,8 +14,14 @@ body {
     margin: 20px;
 }
 
+#logoEscriba {
+    width: 6rem;
+    height: 6rem;
+}
+
 h1 {
     /*color: #343a40;*/
+    font-family: 'Georgia', serif;
     color: var(--primary-color);
     text-align: center;
 }
