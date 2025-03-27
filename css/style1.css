@@ -17,6 +17,8 @@ body {
 #logoEscriba {
     width: 5rem;
     height: auto;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+    /* Sombra leve */
 }
 
 
