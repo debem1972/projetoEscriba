@@ -11,19 +11,36 @@ body {
     /*background-color: #f8f9fa;*/
     background-color: var(--background-color);
     color: var(--text-color);
-    margin: 20px;
+    /*margin: 20px;*/
 }
 
 #logoEscriba {
-    width: 6rem;
-    height: 6rem;
+    width: 5rem;
+    height: auto;
 }
+
+
 
 h1 {
     /*color: #343a40;*/
     font-family: 'Georgia', serif;
     color: var(--primary-color);
     text-align: center;
+}
+
+@media (max-width: 576px) {
+    #logoEscriba {
+        width: 3rem;
+        /* Reduz a logo em telas pequenas */
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.1rem;
+    }
 }
 
 /*textarea {
@@ -137,4 +154,12 @@ textarea {
     margin: 3px 0;
     color: var(--secondary-color);
     /* Garante que os <p> dentro também usem a cor */
+}
+
+footer {
+    background-color: var(--primary-color);
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 4rem;
 }
