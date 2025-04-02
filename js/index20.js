@@ -80,6 +80,8 @@ const saveToIndexedDB = (data) => {
     dataToSave.id = currentEditId;
   }
 
+  console.log('Dados a salvar:', dataToSave);
+
   const request = currentEditId !== null ? store.put(dataToSave) : store.add(dataToSave);
 
   request.onsuccess = () => {
@@ -253,9 +255,9 @@ document.getElementById('convertBtn').addEventListener('click', () => {
   const inputCategory = document.getElementById('inputCategory').value.trim();
   const inputAuthor = document.getElementById('inputAuthor').value.trim();
   const inputAbout = document.getElementById('inputAbout').value.trim();
-  const inputMediumPhoto = document.getElementById('inputMediumPhoto').value.trim();
-  const inputMediumPhone = document.getElementById('inputMediumPhone').value.trim();
-  const inputMediumEmail = document.getElementById('inputMediumEmail').value.trim();
+  const inputMediumPhoto = document.getElementById('inputMediumPhoto')?.value.trim() || '';
+  const inputMediumPhone = document.getElementById('inputMediumPhone')?.value.trim() || '';
+  const inputMediumEmail = document.getElementById('inputMediumEmail')?.value.trim() || '';
 
   if (!inputTitle) {
     alert("Erro: O título não pode estar vazio.");
@@ -286,7 +288,7 @@ document.getElementById('convertBtn').addEventListener('click', () => {
   outputArea.style.display = 'block';
   document.getElementById('selectedCategory').textContent = inputCategory;
 
-  saveToIndexedDB({
+  const dataToSave = {
     title: inputTitle,
     content: formattedContent,
     category: inputCategory,
@@ -295,7 +297,10 @@ document.getElementById('convertBtn').addEventListener('click', () => {
     mediumPhoto: inputMediumPhoto,
     mediumPhone: inputMediumPhone,
     mediumEmail: inputMediumEmail
-  });
+  };
+
+  console.log('Dados a salvar antes de enviar ao IndexedDB:', dataToSave); // Depuração adicional
+  saveToIndexedDB(dataToSave);
 });
 
 // Função para exportar dados como JSON
