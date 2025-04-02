@@ -232,9 +232,9 @@ const clearFields = () => {
   document.getElementById('inputCategory').value = '';
   document.getElementById('inputAuthor').value = '';
   document.getElementById('inputAbout').value = '';
-  document.getElementById('inputMediumPhoto').value = '';
-  document.getElementById('inputMediumPhone').value = '';
-  document.getElementById('inputMediumEmail').value = '';
+  document.getElementById('inputMediumPhoto').value = ''; // Corrigido
+  document.getElementById('inputMediumPhone').value = ''; // Corrigido
+  document.getElementById('inputMediumEmail').value = ''; // Corrigido
 
   const outputArea = document.getElementById('outputArea');
   outputArea.innerHTML = '';
