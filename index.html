@@ -75,8 +75,9 @@
         <div class="container mt-3 shadow rounded">
             <h2>Textos Salvos</h2>
             <div class="mb-3">
-                <input type="text" id="searchSavedTexts" class="form-control"
-                    placeholder="Busque por título, autor ou data (ex.: dd/mm/aaaa, mm/aaaa, aaaa)">
+                <input type="text" id="searchSavedTexts" class="form-control" data-bs-toggle="tooltip"
+                    data-bs-title="Para pesquisar por data, use: dd/mm/aaaa, mm/aaaa ou aaaa." data-bs-placement="top"
+                    placeholder="Busque por título, autor ou data">
             </div>
             <ul id="savedTextsList"></ul>
         </div>
