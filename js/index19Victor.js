@@ -118,9 +118,16 @@ const listSavedTexts = (filter = '') => {
       const li = document.createElement('li');
       li.classList.add('saved-text-item');
 
+      // Span para o texto clicável com title
       const textSpan = document.createElement('span');
       textSpan.textContent = `${item.title} | Autor: ${item.author} - ${formatTimestamp(item.timestamp)}`;
       textSpan.style.cursor = 'pointer';
+
+      // Adicionado o atributo title para exibir a dica ao passar o mouse
+      // Se quiser usar tooltips do Bootstrap, substitua por 'data-bs-toggle="tooltip"' e 'data-bs-title="Para editar o texto clique aqui..."',
+      // mas lembre-se de inicializar os tooltips com 'new bootstrap.Tooltip(textSpan)' após criá-lo.
+      textSpan.setAttribute('title', 'Para editar o texto clique aqui...');
+
       textSpan.addEventListener('click', () => loadTextForEditing(item));
       li.appendChild(textSpan);
 
@@ -189,7 +196,7 @@ const deleteText = (id) => {
   request.onsuccess = () => {
     console.log(`Texto com ID ${id} deletado com sucesso!`);
     alert('Texto deletado com sucesso!');
-    listSavedTexts(document.getElementById('searchSavedTexts').value); // Mantém o filtro após exclusão
+    listSavedTexts(document.getElementById('searchSavedTexts').value);
   };
 
   request.onerror = (event) => {
