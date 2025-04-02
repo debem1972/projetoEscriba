@@ -84,8 +84,20 @@ textarea {
 
 
 /*-------------------------------------------------------------------------*/
+/*Estilo do campo de busca dos textos salvos*/
+#searchSavedTexts {
+    max-width: 400px;
+    margin-bottom: 15px;
+}
 
+.saved-text-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+}
 
+/*---------------------------------------------------------------------------*/
 /*Implementando o cursor pointer a lista de textos salvos*/
 .saved-text-item {
     cursor: pointer;
