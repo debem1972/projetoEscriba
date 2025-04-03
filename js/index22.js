@@ -2,6 +2,7 @@
 let db;
 let currentEditId = null;
 
+// Abre e configura o IndexedDB
 const openDB = () => {
   const request = indexedDB.open('TextEditorDB', 1);
 
@@ -26,12 +27,12 @@ const openDB = () => {
 
 openDB();
 
-// Função para formatar o conteúdo da psicografia
+// Formata o conteúdo da psicografia em linhas
 const formatPoetryContent = (lines) => {
   return lines.map(line => line.trim()).join('\n');
 };
 
-// Função para criar o card da psicografia com a nova lógica de autoria
+// Cria o HTML do card da psicografia
 const createPoetryCard = (title, author, content) => {
   let autoriaHTML = '<div class="poetry-author">';
   if (author.includes('/')) {
@@ -54,7 +55,42 @@ const createPoetryCard = (title, author, content) => {
     `;
 };
 
-// Função para salvar no IndexedDB
+// Função para processar e converter links do Google Drive
+const processGoogleDriveLink = (url) => {
+  const drivePatterns = [
+    /https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)\/view/,
+    /https:\/\/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/,
+    /https:\/\/drive\.google\.com\/uc\?export=view&id=([a-zA-Z0-9_-]+)/
+  ];
+
+  for (const pattern of drivePatterns) {
+    const match = url.match(pattern);
+    if (match && match[1]) {
+      const fileId = match[1];
+      console.log(`Link do Google Drive detectado. ID extraído: ${fileId}`);
+      return `https://drive.google.com/thumbnail?id=${fileId}`;
+    }
+  }
+
+  console.log(`URL não é do Google Drive, mantendo original: ${url}`);
+  return url;
+};
+
+// Função para validar o formato do telefone
+const validatePhone = (phone) => {
+  // Regex para validar telefone no formato (DD) 9XXXX-XXXX, onde DD é o DDD e o número começa com 9
+  const phonePattern = /^\(\d{2}\)\s9\d{4}-\d{4}$/;
+  return phonePattern.test(phone);
+};
+
+// Função para validar o formato do e-mail
+const validateEmail = (email) => {
+  // Regex simples para validar e-mail (nome@dominio.com)
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailPattern.test(email);
+};
+
+// Salva os dados no IndexedDB
 const saveToIndexedDB = (data) => {
   if (!db) {
     console.error('Banco de dados não está conectado.');
@@ -70,9 +106,9 @@ const saveToIndexedDB = (data) => {
     category: data.category,
     author: data.author,
     about: data.about || 'Sem informações sobre o médium.',
-    mediumPhoto: data.mediumPhoto || '', // Novo campo opcional
-    mediumPhone: data.mediumPhone || '', // Novo campo opcional
-    mediumEmail: data.mediumEmail || '', // Novo campo opcional
+    mediumPhoto: data.mediumPhoto || '',
+    mediumPhone: data.mediumPhone || '',
+    mediumEmail: data.mediumEmail || '',
     timestamp: new Date()
   };
 
@@ -96,7 +132,7 @@ const saveToIndexedDB = (data) => {
   };
 };
 
-// Função para listar textos salvos com filtro
+// Lista os textos salvos com filtro
 const listSavedTexts = (filter = '') => {
   if (!db) {
     console.error('Banco de dados não está conectado.');
@@ -146,7 +182,7 @@ const listSavedTexts = (filter = '') => {
   };
 };
 
-// Função para filtrar textos salvos
+// Filtra os textos salvos com base na busca
 const filterSavedTexts = (texts, query) => {
   const trimmedQuery = query.trim().toLowerCase();
 
@@ -176,7 +212,7 @@ const filterSavedTexts = (texts, query) => {
   });
 };
 
-// Função para deletar um texto do IndexedDB
+// Deleta um texto do IndexedDB
 const deleteText = (id) => {
   if (!db) {
     console.error('Banco de dados não está conectado.');
@@ -202,13 +238,13 @@ const deleteText = (id) => {
   };
 };
 
-// Função para formatar timestamp
+// Formata o timestamp para exibição
 const formatTimestamp = (timestamp) => {
   const date = new Date(timestamp);
   return date.toLocaleString();
 };
 
-// Função para carregar texto para edição
+// Carrega um texto para edição
 const loadTextForEditing = (item) => {
   document.getElementById('inputTitle').value = item.title;
   document.getElementById('inputText').value = item.content;
@@ -227,16 +263,15 @@ const loadTextForEditing = (item) => {
   currentEditId = item.id;
 };
 
-// Função para limpar campos
+// Limpa os campos do formulário
 const clearFields = () => {
   document.getElementById('inputTitle').value = '';
   document.getElementById('inputText').value = '';
   document.getElementById('inputCategory').value = '';
   document.getElementById('inputAuthor').value = '';
   document.getElementById('inputAbout').value = '';
-  document.getElementById('inputMediumPhoto').value = ''; // Corrigido
-  document.getElementById('inputMediumPhone').value = ''; // Corrigido
-  document.getElementById('inputMediumEmail').value = ''; // Corrigido
+  document.getElementById('inputMediumPhone').value = '';
+  document.getElementById('inputMediumEmail').value = '';
 
   const outputArea = document.getElementById('outputArea');
   outputArea.innerHTML = '';
@@ -250,15 +285,17 @@ const clearFields = () => {
 
 // Evento do botão de converter/salvar
 document.getElementById('convertBtn').addEventListener('click', () => {
+  // Captura os valores dos campos
   const inputTitle = document.getElementById('inputTitle').value.trim();
   const inputText = document.getElementById('inputText').value.trim();
   const inputCategory = document.getElementById('inputCategory').value.trim();
   const inputAuthor = document.getElementById('inputAuthor').value.trim();
   const inputAbout = document.getElementById('inputAbout').value.trim();
-  const inputMediumPhoto = document.getElementById('inputMediumPhoto')?.value.trim() || '';
+  let inputMediumPhoto = document.getElementById('inputMediumPhoto')?.value.trim() || '';
   const inputMediumPhone = document.getElementById('inputMediumPhone')?.value.trim() || '';
   const inputMediumEmail = document.getElementById('inputMediumEmail')?.value.trim() || '';
 
+  // Validações básicas dos campos obrigatórios
   if (!inputTitle) {
     alert("Erro: O título não pode estar vazio.");
     return;
@@ -279,15 +316,35 @@ document.getElementById('convertBtn').addEventListener('click', () => {
     return;
   }
 
+  // Validação do telefone (opcional, mas se preenchido, deve estar no formato correto)
+  if (inputMediumPhone && !validatePhone(inputMediumPhone)) {
+    alert("Erro: O telefone deve estar no formato (DD) 9XXXX-XXXX, ex.: (11) 99999-9999.");
+    return;
+  }
+
+  // Validação do e-mail (opcional, mas se preenchido, deve ser válido)
+  if (inputMediumEmail && !validateEmail(inputMediumEmail)) {
+    alert("Erro: O e-mail inserido não é válido. Use o formato exemplo@dominio.com.");
+    return;
+  }
+
+  // Processa o link do Google Drive, se houver
+  if (inputMediumPhoto) {
+    inputMediumPhoto = processGoogleDriveLink(inputMediumPhoto);
+  }
+
+  // Formata o conteúdo e cria o card
   const lines = inputText.split('\n').filter(line => line.trim() !== '');
   const formattedContent = formatPoetryContent(lines);
   const htmlContent = createPoetryCard(inputTitle, inputAuthor, formattedContent);
 
+  // Exibe o card na área de saída
   const outputArea = document.getElementById('outputArea');
   outputArea.innerHTML = htmlContent;
   outputArea.style.display = 'block';
   document.getElementById('selectedCategory').textContent = inputCategory;
 
+  // Prepara os dados para salvar
   const dataToSave = {
     title: inputTitle,
     content: formattedContent,
@@ -299,11 +356,11 @@ document.getElementById('convertBtn').addEventListener('click', () => {
     mediumEmail: inputMediumEmail
   };
 
-  console.log('Dados a salvar antes de enviar ao IndexedDB:', dataToSave); // Depuração adicional
+  console.log('Dados a salvar antes de enviar ao IndexedDB:', dataToSave);
   saveToIndexedDB(dataToSave);
 });
 
-// Função para exportar dados como JSON
+// Exporta os dados como JSON
 const exportData = () => {
   if (!db) {
     console.error('Banco de dados não está conectado.');
@@ -335,7 +392,7 @@ const exportData = () => {
   };
 };
 
-// Função para importar dados do JSON
+// Importa dados de um arquivo JSON
 const importData = (file) => {
   if (!db) {
     console.error('Banco de dados não está conectado.');
@@ -380,7 +437,7 @@ const importData = (file) => {
   reader.readAsText(file);
 };
 
-// Event Listeners
+// Configura os eventos ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
   const clearBtn = document.getElementById('clearBtn');
   if (clearBtn) {
