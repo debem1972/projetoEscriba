@@ -27,4 +27,4 @@ O foco principal desta página, é dar voz ao mundo espiritual por meio de psico
 O Escriba Pública é uma iniciativa humilde que busca contribuir positivamente para a humanidade, oferecendo uma plataforma simples e acessível para compartilhar mensagens espirituais. Espero que este projeto possa inspirar, consolar ou despertar curiosidade em quem o encontrar.
 
 
-Espero que curtam!:pray:.
+Espero que curtam! :pray:
